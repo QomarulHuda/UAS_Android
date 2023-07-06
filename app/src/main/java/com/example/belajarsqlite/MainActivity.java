@@ -1,8 +1,5 @@
 package com.example.belajarsqlite;
 
-import androidx.annotation.ColorLong;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,11 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<MhsModel> mhsList;
+    ArrayList<MhsModel> mhsList ;
     MhsModel mm;
     DbHelper db;
     boolean isEdit;
@@ -63,46 +62,39 @@ public class MainActivity extends AppCompatActivity {
 
                     boolean stts;
 
-                    if(!isEdit){
+                    if (!isEdit) {
                         mm = new MhsModel(-1, isian_nama, isian_nim, isian_noHp);
                         stts = db.simpan(mm);
                         edNama.setText("");
                         edNim.setText("");
                         edNoHp.setText("");
 
-                    }else{
+                    } else {
                         mm = new MhsModel(mm.getId(), isian_nama, isian_nim, isian_noHp);
                         stts = db.ubah(mm);
                     }
 
-                    if(stts){
+                    if (stts) {
 
                         Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "Data Gagal Disimpan", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
-        });
 
-        Button btnLihat = (Button) findViewById(R.id.btnLihat);
-        btnLihat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            Button btnLihat = (Button) findViewById(R.id.btnLihat);
+        btnLihat.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick (View view){
 
-                mhsList = db.list();
+                    mhsList = db.list();
 
-                if (mhsList.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Belum ada data", Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent intent_list = new Intent(MainActivity.this, ListMhsActivity.class);
-                    intent_list.putParcelableArrayListExtra("mhsList", mhsList);
-                    startActivity(intent_list);
-                }
-
-
-            }
-        });
-    }
-}
+                    if (mhsList.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Belum ada data", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent_list = new Intent(MainActivity.this, ListMhsActivity.class);
+                        intent_list.putParcelableArrayListExtra("mhsList", mhsList);
+                        startActivity(intent_list);
+                    }
+                });

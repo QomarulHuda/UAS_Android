@@ -51,13 +51,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public ArrayList<MhsModel> list(){
 
-        String query = "SELECT * FROM "+ TABLE_NAME;
+        String query = "SELECT * FROM "+ TABLE_NAME ;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         ArrayList<MhsModel> mhsList = new ArrayList<>();
 
-        if(cursor.getCount()> 0){
+        if(cursor.getCount()>0 ){
             while(cursor.moveToNext()){
                 int id = cursor.getInt(0);
                 String nama = cursor.getString(1);
